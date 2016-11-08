@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 from flask import Flask, Response, request, render_template
-from flask.ext.login import LoginManager, UserMixin, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
@@ -10,8 +9,6 @@ testdb = 'sqlite:///../test.db'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = testdb
-login_manager = LoginManager()
-login_manager.init_app(app)
 db = SQLAlchemy(app)
 
 # Model Objects
