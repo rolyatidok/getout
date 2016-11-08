@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %} List Users {% endblock %}
+
+{% block style %} 
+
+<style>
+
+form{
+	height:300px;
+	width:80%;
+	text-align:left;
+}
+
+.column--header{
+    background-color: rgba(0, 100, 200, 0.8);
+	color:white;
+	font-weight:bold;
+}
+
+table, tr, td{
+	border-collapse: collapse;
+	border:1px solid black;
+}
+
+td{
+	width:50%;
+	text-indent:5px;
+}
+
+td:hover{
+	text-decoration:underline;
+}
+
+.select--column{
+	width:25px;
+}
+
+.buttons{
+	display:table;
+}
+
+input[type="submit"], input[type="button"]{
+	width:150px;
+}
+
+.button--left{
+	margin-left:0px;
+	margin-right:5px;
+}
+
+.button--right{
+	margin-right:0px;
+	margin-left:5px;
+}
+
+
+</style>
+{% endblock %}
+
+<!-- begin script tag -->
+{% block script %}
+<script>
+function newuser(){
+	window.location="/newuser";
+};
+
+</script>
+{% endblock %}
+
+{% block main_content %}
+<form id="userstable" name="userstable" method="post" action="/editusers">
+<div class="users--table">
+	<h1>Users</h1>
+	<table>
+		<tr class="column--header">
+			<td class="select--column"><input type="checkbox" disabled="true"></td>
+			<td>Name</td>
+			<td>Email</td>
+		</tr>
+	{% for user in users %}
+		<tr>
+			<td class="select--column"><input type="checkbox" name="{{user.id}}" id="{{user.id}}"></td>
+			<td><label for="{{user.id}}">{{user.username|e}}</label></td> 
+			<td><label for="{{user.id}}">{{user.email|e}}</label></td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+<div class="buttons">
+	<input type="submit" class="button--left" name="deleteuser" value="Delete User" ></input>
+	<input type="button" class="button--right" name="adduser" value="New User" onclick="newuser()"></input>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+.form{
+	display:table;
+}
+
+.input[type="text", type="password"]{
+	display:table-cell;
+}
+
+.input[type="submit", type="button"]{
+	display:table-cell;
+}

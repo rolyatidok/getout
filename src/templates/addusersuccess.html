@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Successfully Added User {% if name %}{{ name }} {% endif %}</title>
+</head>
+
+<body>
+<h1>Successfully Added User {% if name %}{{ name }} {% endif %}</h1>
+
+<form action="listusers">
+	<input type="submit" method="GET" value="List All Users">
+</form>
+</body>
+
+</html>

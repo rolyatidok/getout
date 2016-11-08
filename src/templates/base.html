@@ -1,0 +1,33 @@
+{% set title = "App Name?" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+	<script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+
+	{% block head %}	
+		<title>{% block title %} {{ title }} {% endblock %}</title>
+	{% endblock %}
+	{% block style %}{% endblock %}
+	{% block script %}{% endblock %}
+</head>
+
+<body>
+	<header>
+		{% block header %}
+		<div class="header--title"> {{title}} </div>
+		{% endblock %}
+	</header>
+	<nav>
+		{% block nav %}
+			<div class ="nav--item"><a href="/">Home</a></div>
+			<div class ="nav--item"><a href="/listusers">Users</a></div>
+		{% endblock %}
+	</nav>
+	<main>{% block main_content %}{% endblock %}</main>
+	<footer>{% block footer %}&copy; Copyright 2016{% endblock %}</footer>
+</body>
+
+</html>

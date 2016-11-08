@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} New User {% endblock %}
+
+{% block main_content %}
+<form action="adduser" method="post" name="newuserform" class="myform">
+
+	<h1>Create a new user</h1>
+
+	<div><input type="text" required="true" name="userinput" id="userinput" placeholder="User Name"></div>
+	<div><input type="text" required="true" name="emailinput" id="emailinput" placeholder="Email Address"></div>
+	<div><input type="password" required="true" name="passwordinput" id="passwordinput" placeholder="New password"></div>
+	<div><input type="password" required="true" id="passwordinput2" placeholder="Enter password again"></div>
+	
+	<div><input type="submit" value="Create User"></div>
+</form>
+{% endblock %}
