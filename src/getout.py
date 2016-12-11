@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from flask import Flask, Response, request, render_template
+from flask import Flask, Response, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
@@ -67,8 +67,8 @@ class Venue(db.Model):
 
 class Event(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(80), unique=True)
-	venue_id = db.Column(db.Integer, unique=False)
+	name = db.Column(db.String(80))
+	venue_id = db.Column(db.Integer)
 	description = db.Column(db.String(1024))
 
 	def __init__(self, name ):
@@ -125,6 +125,12 @@ def list_venues():
 	venues = Venue.query.all()
 	return render_template('listvenues.html', venues=venues)
 
+@app.route('/getplaceids', methods=['GET', 'POST'])
+def get_place_ids():
+	ids = [venue.place_id for venue in Venue.query.all()]
+	return jsonify(place_ids = ids)
+
+
 @app.route('/newvenue')
 def new_venue(place_id):
 	return render_template('newvenue.html')
@@ -180,7 +186,7 @@ def login():
 
 @app.route('/')
 def welcome():
-	return render_template('index.html')
+	return render_template('index.html', venues=Venue.query.all())
 
 
 @app.route('/about')

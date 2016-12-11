@@ -37,6 +37,7 @@
 		  center: {lat: 0, lng: 0},
 		  zoom: 14
 		});
+		var service = new google.maps.places.PlacesService(map);
 
 		navigator.geolocation.getCurrentPosition(geoSuccess);
 		
@@ -49,11 +50,35 @@
 		var searchBox = new google.maps.places.SearchBox(input);
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+		//add the places we know about
+		$.getJSON('/getplaceids', {  }, function(data) {
+	        for(var i=0; i< data.place_ids.length; i++){
+	        	service.getDetails({
+		          placeId: data.place_ids[i]
+		        }, function(place, status) {
+		          if (status === google.maps.places.PlacesServiceStatus.OK) {
+		            var marker = new google.maps.Marker({
+		              map: map,
+		              position: place.geometry.location
+		            });
+		            google.maps.event.addListener(marker, 'click', function() {
+		              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+		                'Place ID: ' + place.place_id + '<br>' +
+		                place.formatted_address + '</div>');
+		              infowindow.open(map, this);
+		            });
+		          }
+		        });
+	        }
+	     });
+
 		console.log("add search bounds listener")
 		// Bias the SearchBox results towards current map's viewport.
 		map.addListener('bounds_changed', function() {
 		  searchBox.setBounds(map.getBounds());
 		});
+
+		
 
 		var markers = [];
 		// Listen for the event fired when the user selects a prediction and retrieve
@@ -117,7 +142,10 @@
 		  });
 		  map.fitBounds(bounds);
 		});
-	  }
+
+		
+
+	  }//initmap
   
     </script>
 
