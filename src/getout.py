@@ -54,7 +54,7 @@ class Venue(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), unique=True)
 	physical_addr = db.Column(db.String(255), unique=True)
-	webaddr = db.Column(db.String(120), unique=True)
+	webaddr = db.Column(db.String(120), unique=False)
 	claimed = db.Column(db.Boolean, unique=False, default=False)
 
 	def __init__(self, name):
@@ -122,6 +122,29 @@ def list_venues():
 @app.route('/newvenue')
 def new_venue():
 	return render_template('newvenue.html')
+
+@app.route('/addvenue', methods=['POST'])
+def add_venue():
+	venue = Venue(request.form['venueinput'])
+	venue.webaddr = request.form['venuewebsite']
+	db.session.add(venue)
+	db.session.commit()
+	return list_venues()
+
+
+@app.route('/editvenues', methods=['POST'])
+def edit_venues():
+	
+	venues = Venu.equery.all();
+	for venue in venues:
+		venue_id = str(venue.id)
+		checked =  False if request.form.get(venue_id) is None else True
+		if checked: 
+			db.session.delete(venue)
+
+	db.session.commit()
+
+	return list_venues()
 
 @app.route('/login')
 def login():

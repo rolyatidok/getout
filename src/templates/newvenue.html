@@ -3,13 +3,13 @@
 {% block title %} New User {% endblock %}
 
 {% block main_content %}
-<form action="adduser" method="post" name="newvenueform" class="myform">
+<form action="addvenue" method="post" name="newvenueform" class="myform" >
 
 	<h1>Add a new Venue</h1>
 
 	<div><input type="text" required="true" name="venueinput" id="venuinput" placeholder="Venue Name"></div>
 
-	<div><input type="url" required="false" name="venuewebsite" id="venuewebsite" placeholder="Website"></div>
+	<div><input type="url" name="venuewebsite" id="venuewebsite" placeholder="Website"></div>
 
 	
 	<div><input type="submit" value="Add Venue"></div>

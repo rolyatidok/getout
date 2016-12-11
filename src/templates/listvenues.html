@@ -4,92 +4,51 @@
 
 {% block style %} 
 
-<style>
-
-form{
-	height:300px;
-	width:80%;
-	text-align:left;
-}
-
-.column--header{
-    background-color: rgba(0, 100, 200, 0.8);
-	color:white;
-	font-weight:bold;
-}
-
-table, tr, td{
-	border-collapse: collapse;
-	border:1px solid black;
-}
-
-td{
-	width:50%;
-	text-indent:5px;
-}
-
-td:hover{
-	text-decoration:underline;
-}
-
-.select--column{
-	width:25px;
-}
-
-.buttons{
-	display:table;
-}
-
-input[type="submit"], input[type="button"]{
-	width:150px;
-}
-
-.button--left{
-	margin-left:0px;
-	margin-right:5px;
-}
-
-.button--right{
-	margin-right:0px;
-	margin-left:5px;
-}
-
-
-</style>
 {% endblock %}
 
 <!-- begin script tag -->
 {% block script %}
 <script>
-function newuser(){
-	window.location="/newuser";
+function newvenue(){
+	window.location="/newvenue";
 };
+
+function toggleRowChecked(rowid){
+	console.log(rowid)
+	var checked = $("#"+rowid).prop('checked')
+	$("#" + rowid).prop('checked', !checked)
+}
 
 </script>
 {% endblock %}
 
 {% block main_content %}
-<form id="userstable" name="userstable" method="post" action="/editusers">
-<div class="users--table">
+<form id="venuestable" name="venuestable" method="post" action="/editvenues">
+<div class="venues--table">
 	<h1>Venues</h1>
 	<table>
 		<tr class="column--header">
 			<td class="select--column"><input type="checkbox" disabled="true"></td>
 			<td>Name</td>
-			<td>Email</td>
+			<td>Website</td>
 		</tr>
-	{% for user in users %}
+	{% for venue in venues %}
 		<tr>
-			<td class="select--column"><input type="checkbox" name="{{user.id}}" id="{{user.id}}"></td>
-			<td><label for="{{user.id}}">{{user.username|e}}</label></td> 
-			<td><label for="{{user.id}}">{{user.email|e}}</label></td>
+			<td class="select--column">
+				<input type="checkbox" name="{{venue.id}}" id="venue{{venue.id}}"></td>
+			<td onclick="toggleRowChecked('venue{{venue.id}}')">
+				<label for="venue{{venue.id}}">{{venue.name|e}}</label>
+			</td> 
+			<td onclick="toggleRowChecked('venue{{venue.id}}')">
+				<label>{{venue.webaddr}}</label>
+			</td>
 		</tr>
 	{% endfor %}
 	</table>
 </div>
 <div class="buttons">
-	<input type="submit" class="button--left" name="deleteuser" value="Delete User" ></input>
-	<input type="button" class="button--right" name="adduser" value="New User" onclick="newuser()"></input>
+	<input type="submit" class="button--left" name="deletevenue" value="Delete Venue" ></input>
+	<input type="button" class="button--right" name="addvenue" value="New Venue" onclick="newvenue()"></input>
 </div>
 </form>
 {% endblock %}

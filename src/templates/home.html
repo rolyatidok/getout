@@ -19,7 +19,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUf6V7Fxe3WldsOf-9EizCDQ_Qd7R4q1U&libraries=places&callback=initMap" async defer></script>
 
     <script>
-      var map, lat = 42.0987, long = 75.9180;
+      var map, lat = 42.0987, long = 75.9180, service;
 
       function initMap() {
       	var geoSuccess = function(position){
@@ -34,14 +34,15 @@
           center: {lat: 0, lng: 0},
           zoom: 8
         });
+        
+        places = new google.maps.places.PlacesService(map);
       }
+
     </script>
 
 {% endblock %}
 
 {% block main_content %}
-    <div id="map"></div>
-
-    
-
+  <section id="sidebar"></section>
+  <div id="map"></div>
 {% endblock %}

@@ -130,3 +130,51 @@ input[type="submit"]:hover, input[type="button"]:hover{
     background-color: rgba(0, 100, 200, 0.9);    
 }
 
+form{
+	height:300px;
+	width:80%;
+	text-align:left;
+}
+
+.column--header{
+    background-color: rgba(0, 100, 200, 0.8);
+	color:white;
+	font-weight:bold;
+}
+
+table, tr, td{
+	border-collapse: collapse;
+	border:1px solid black;
+}
+
+td{
+	width:50%;
+	text-indent:5px;
+}
+
+td:hover{
+	text-decoration:underline;
+}
+
+.select--column{
+	width:25px;
+}
+
+.buttons{
+	display:table;
+}
+
+input[type="submit"], input[type="button"]{
+	width:150px;
+}
+
+.button--left{
+	margin-left:0px;
+	margin-right:5px;
+}
+
+.button--right{
+	margin-right:0px;
+	margin-left:5px;
+}
+
