@@ -1,12 +1,47 @@
 {% extends "base.html" %}
 
-{% block title %} Welcome {% endblock %}
+{% block head %}
+	<meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUf6V7Fxe3WldsOf-9EizCDQ_Qd7R4q1U&libraries=places&callback=initMap" async defer></script>
+
+    <script>
+      var map, lat = 42.0987, long = 75.9180;
+
+      function initMap() {
+      	var geoSuccess = function(position){
+      		lat = position.coords.latitude;
+      		long = position.coords.longitude;
+      		map.panTo({lat:lat, lng:long});
+      		map.setZoom(13)
+      	}
+
+      	navigator.geolocation.getCurrentPosition(geoSuccess);
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 0, lng: 0},
+          zoom: 8
+        });
+      }
+    </script>
+
+{% endblock %}
 
 {% block main_content %}
-<form action="/login" method="POST" name="loginform">
-	<h1>Log In</h1>
-	<div><input type="text" name="userinput" placeholder="Username"></div>
-	<div><input type="password" name="passwordinput" placeholder="Password"></div>
-	<div><input type="submit" value="Submit"></div>
-</form>
+    <div id="map"></div>
+
+    
+
 {% endblock %}

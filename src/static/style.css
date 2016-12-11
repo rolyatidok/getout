@@ -4,6 +4,13 @@ body{
 	margin:0px;
 }
 
+main{
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	height:100%;
+}
+
 header{
 	top:0px;
 	text-align:center;
@@ -16,6 +23,7 @@ header{
 }
 
 nav{
+	display:inline-table;
 	top:32px;
 	height:20px;
 	line-height:20px;
@@ -23,31 +31,50 @@ nav{
 	color:white;
 	background-color:rgba(0,0,0,0.9);
 	width:100%;
+	padding-bottom:10px;
 }
 
 nav div{
 	display:table-cell;
 	width:75px;
-	text-align:left;
+	text-align:center;
 }
 
 nav a{
 	color: rgba(0, 100, 200, 0.9);
 	text-decoration: none;
 	font-weight:bold;
+	margin:15px;
 }
 
 nav a:hover{
-	text-decoration: underline;
+	border-bottom: 1px solid rgba(0, 100, 200, 0.9);;
 }
 
-.nav--item{
-	margin-left:25px;
+div a{
+	color: rgba(0, 100, 200, 0.9);
+	text-decoration: none;
+	font-weight:bold;
+	font-size:14px;
+	margin:15px;
+}
+
+div a:hover{
+	border-bottom:1px solid rgba(0, 100, 200, 0.9);;
+}
+
+.nav--item--left{
+}
+
+.nav--item--right{
+	float:right;
 }
 
 .left--main{
 	text-align:left;
 }
+
+
 
 footer{
 	position:fixed;
@@ -72,7 +99,7 @@ form{
 	margin-right:auto;
 }
 
-input[type="text"], input[type="password"],
+input[type="text"], input[type="password"], input[type="url"],
 input[type="submit"], input[type="button"]
 {
 	width:320px;
@@ -83,7 +110,7 @@ input[type="submit"], input[type="button"]
     font-size: 14px;
 }
 
-input[type="text"], input[type="password"]{
+input[type="text"], input[type="password"], input[type="url"]{
 	width:316px;
 	display:table-cell;
 	text-indent:10px;

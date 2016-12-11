@@ -1,4 +1,4 @@
-{% set title = "App Name?" %}
+{% set title = "Get Out!" %}
 
 <!DOCTYPE html>
 <html>
@@ -22,8 +22,9 @@
 	</header>
 	<nav>
 		{% block nav %}
-			<div class ="nav--item"><a href="/">Home</a></div>
-			<div class ="nav--item"><a href="/listusers">Users</a></div>
+			<div class ="nav--item--left"><a href="/">Home</a></div>
+			<div class ="nav--item--left"><a href="/listusers">Users</a></div>
+			<div class ="nav--item--right"><a href="/login">Login</a></div>	
 		{% endblock %}
 	</nav>
 	<main>{% block main_content %}{% endblock %}</main>

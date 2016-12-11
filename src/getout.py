@@ -23,6 +23,8 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), unique=True)
 	email = db.Column(db.String(120), unique=True)
+	is_owner = db.Column(db.Boolean)
+	zipcode = db.Column(db.String(5))
 
 
 	#Constructor
@@ -74,8 +76,8 @@ class LoginForm(Form):
 	email = StringField("Email Address", [validators.Length(min=6, max=64)])
 	password = PasswordField("Password", [validators.DataRequired()])
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/do_login', methods=['GET', 'POST'])
+def do_login():
 	user = User.query.filter_by(username=request.form['userinput']).first()
 	return render_template('home.html', user=user)
 
@@ -111,6 +113,19 @@ def add_user():
 def list_users():
 	users = User.query.all()
 	return render_template('listusers.html', users=users)
+
+@app.route('/listvenues', methods=['GET'])
+def list_venues():
+	venues = Venue.query.all()
+	return render_template('listvenues.html', venues=venues)
+
+@app.route('/newvenue')
+def new_venue():
+	return render_template('newvenue.html')
+
+@app.route('/login')
+def login():
+	return render_template('login.html')
 
 @app.route('/')
 def welcome():
