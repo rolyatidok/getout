@@ -56,6 +56,7 @@ class Venue(db.Model):
 	physical_addr = db.Column(db.String(255), unique=True)
 	webaddr = db.Column(db.String(120), unique=False)
 	claimed = db.Column(db.Boolean, unique=False, default=False)
+	place_id = db.Column(db.String(120), unique=True)
 
 	def __init__(self, name):
 		self.name = name
@@ -67,6 +68,11 @@ class Venue(db.Model):
 class Event(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), unique=True)
+	venue_id = db.Column(db.Integer, unique=False)
+	description = db.Column(db.String(1024))
+
+	def __init__(self, name ):
+		self.name = name
 
 db.create_all()
 
@@ -120,7 +126,7 @@ def list_venues():
 	return render_template('listvenues.html', venues=venues)
 
 @app.route('/newvenue')
-def new_venue():
+def new_venue(place_id):
 	return render_template('newvenue.html')
 
 @app.route('/addvenue', methods=['POST'])
@@ -135,7 +141,7 @@ def add_venue():
 @app.route('/editvenues', methods=['POST'])
 def edit_venues():
 	
-	venues = Venu.equery.all();
+	venues = Venue.query.all();
 	for venue in venues:
 		venue_id = str(venue.id)
 		checked =  False if request.form.get(venue_id) is None else True
@@ -145,6 +151,28 @@ def edit_venues():
 	db.session.commit()
 
 	return list_venues()
+
+@app.route('/newevent/<place_id>/<venue_name>')
+def new_event(place_id, venue_name):
+	return render_template('newevent.html', 
+			place_id=place_id, venue_name=venue_name)
+
+@app.route('/addevent', methods=['POST'])
+def add_event():
+	event = Event(request.form['eventtitle'])
+	event.description = request.form['eventdescription']
+	venue = Venue.query.filter_by(place_id=request.form['place_id']).first()
+	if(venue == None):
+		newvenue=Venue(request.form['venueinput'])
+		newvenue.place_id = request.form['place_id']
+		db.session.add(newvenue)
+		db.session.commit()
+		venue = Venue.query.filter_by(place_id=request.form['place_id']).first()
+
+	event.venue_id = venue.id
+	db.session.add(event)
+	db.session.commit()
+	return render_template('index.html', venues=Venue.query.all())	
 
 @app.route('/login')
 def login():

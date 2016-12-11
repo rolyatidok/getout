@@ -1,17 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %} New User {% endblock %}
+{% block title %} New Event {% endblock %}
+
+{% block head %}
+<style>
+form label,
+form input{
+	display:block;
+}
+
+textarea{
+	width:320px;
+}
+</style>
+{% endblock %}
 
 {% block main_content %}
-<form action="adduser" method="post" name="newuserform" class="myform">
+<form action="/addevent" method="post" name="neweventform" class="myform">
 
-	<h1>Create a new user</h1>
+	<h1>Add a new event</h1>
 
-	<div><input type="text" required="true" name="userinput" id="userinput" placeholder="User Name"></div>
-	<div><input type="text" required="true" name="emailinput" id="emailinput" placeholder="Email Address"></div>
-	<div><input type="password" required="true" name="passwordinput" id="passwordinput" placeholder="New password"></div>
-	<div><input type="password" required="true" id="passwordinput2" placeholder="Enter password again"></div>
+	<div>
+		<label for="venueinput">Venue Name</label>
+		<input readonly="true" type="text" name="venueinput" id="venueinput" value="{{venue_name}}"/>
+		<script>$(venueinput).set('value', '{{venue_name}}') </script>
+
+		<label for="eventtitle">Event Title</label>
+		<input required="true" type="text" name="eventtitle" id="eventtitle"/>
+
+		<label for="eventdescription">Event Description</label>
+		<textarea rows="8" name="eventdescription" id="eventdescription"></textarea>
+
 	
-	<div><input type="submit" value="Create User"></div>
+	<div><input type="submit" value="Add Event"></div>
+
+	<input type="hidden" name="place_id" value="{{place_id}}"/>
+
 </form>
 {% endblock %}
