@@ -97,6 +97,14 @@ form{
     padding: 20px;
 	margin-left:auto;
 	margin-right:auto;
+	text-align:center;
+}
+
+label{
+	display:table-cell;
+	text-align:left;
+	margin-bottom:5px;
+	font-weight:bold;
 }
 
 input[type="text"], input[type="password"], input[type="url"],
@@ -104,10 +112,10 @@ input[type="submit"], input[type="button"], select
 {
 	width:320px;
 	height:35px;
-	margin-top:10px;
-	margin-bottom:10px;
+	margin-bottom:25px;
 	font-family: sans-serif;
     font-size: 14px;
+    display:table-cell;
 }
 
 input[type="text"], input[type="password"], input[type="url"]{
@@ -130,12 +138,6 @@ input[type="submit"]:hover, input[type="button"]:hover{
     background-color: rgba(0, 100, 200, 0.9);    
 }
 
-form{
-	height:300px;
-	width:80%;
-	text-align:left;
-}
-
 .column--header{
     background-color: rgba(0, 100, 200, 0.8);
 	color:white;
@@ -147,9 +149,21 @@ table, tr, td{
 	border:1px solid black;
 }
 
+#eventstable{
+	width:100%;
+	text-align:center;
+}
+
+.events-table table{
+	width:90%;
+}
+
 td{
-	width:50%;
 	text-indent:5px;
+}
+
+td.True{
+	background-color: rgba(0, 100, 200, 0.6);
 }
 
 td:hover{
@@ -176,5 +190,26 @@ input[type="submit"], input[type="button"]{
 .button--right{
 	margin-right:0px;
 	margin-left:5px;
+}
+
+.day-selector{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	margin-bottom:25px;
+}
+
+.day-selector-label{
+	font-size:14px;
+	font-weight:bold;
+}
+
+.day-selector-label-weekend{
+	font-weight:normal;
+}
+
+.day-selector input[type="checkbox"]{
+	width:20px;
+	height:20px;
 }
 

@@ -22,18 +22,48 @@ textarea{
 
 	<div>
 		<label for="venueinput">Venue Name</label>
-		<input readonly="true" type="text" name="venueinput" id="venueinput" value="{{venue_name}}"/
->		<script>$(venueinput).set('value', '{{venue_name}}') </script>
-
-		<label for="eventtitle">Event Title</label>
-		<input required="true" type="text" name="eventtitle" id="eventtitle"/>
+		<input readonly="true" type="text" name="venueinput" id="venueinput" value="{{venue_name}}"/>
 
 		<label for="eventtype">Event Type</label>
-		<select id="eventtype">
+		<select id="eventtype" name="eventtype">
+			<option disable="true"></option>
 			<option value="karaoke">Karaoke</option>
-			<option value="karaoke">Open Mic</option>
-			<option value="karaoke">Wing Special</option>
+			<option value="openmic">Open Mic</option>
+			<option value="wings">Wing Special</option>
+			<option value="trivia">Team Trivia</option>
 		</select>
+
+		<label>Select Days</label>
+		<div class="day-selector">
+			<div class="day-selector-day">
+				<div class="day-selector-label day-selector-label-weekend">Su</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_sunday" id="checkbox_sunday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label">Mo</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_monday" id="checkbox_monday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label">Tu</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_tuesday" id="checkbox_tuesday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label">We</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_wednesday" id="checkbox_wednesday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label">Th</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_thursday" id="checkbox_thursday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label">Fr</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_friday" id="checkbox_friday"></div>
+			</div>
+			<div class="day-selector-day">
+				<div class="day-selector-label day-selector-label-weekend">Sa</div>
+				<div class="day-selector-checkbox"><input type="checkbox" name="checkbox_saturday" id="checkbox_saturday"></div>
+			</div>
+		</div>
 
 		<label for="eventdescription">Event Description</label>
 		<textarea rows="8" name="eventdescription" id="eventdescription"></textarea>

@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
+import sys
+
 
 testdb = 'sqlite:///../test.db'
 
@@ -67,12 +69,17 @@ class Venue(db.Model):
 
 class Event(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(80))
 	venue_id = db.Column(db.Integer)
+	eventtype = db.Column(db.String(64))
 	description = db.Column(db.String(1024))
+	sunday = db.Column(db.Boolean, default=False)
+	monday = db.Column(db.Boolean, default=False)
+	tuesday = db.Column(db.Boolean, default=False)
+	wednesday = db.Column(db.Boolean, default=False)
+	thursday = db.Column(db.Boolean, default=False)
+	friday = db.Column(db.Boolean, default=False)
+	saturday = db.Column(db.Boolean, default=False)
 
-	def __init__(self, name ):
-		self.name = name
 
 db.create_all()
 
@@ -165,8 +172,20 @@ def new_event(place_id, venue_name):
 
 @app.route('/addevent', methods=['POST'])
 def add_event():
-	event = Event(request.form['eventtitle'])
+	event = Event()
 	event.description = request.form['eventdescription']
+
+	event.eventtype = request.form.get('eventtype')
+	print(request.form.get('eventtype'), file=sys.stderr)
+
+	event.sunday = False if request.form.get('checkbox_sunday') is None else True
+	event.monday = False if request.form.get('checkbox_monday') is None else True
+	event.tuesday = False if request.form.get('checkbox_tuesday') is None else True
+	event.wednesday = False if request.form.get('checkbox_wednesday') is None else True
+	event.thursday = False if request.form.get('checkbox_thursday') is None else True
+	event.friday = False if request.form.get('checkbox_friday') is None else True
+	event.saturday = False if request.form.get('checkbox_saturday') is None else True
+
 	venue = Venue.query.filter_by(place_id=request.form['place_id']).first()
 	if(venue == None):
 		newvenue=Venue(request.form['venueinput'])
@@ -176,9 +195,29 @@ def add_event():
 		venue = Venue.query.filter_by(place_id=request.form['place_id']).first()
 
 	event.venue_id = venue.id
+
+
 	db.session.add(event)
 	db.session.commit()
 	return render_template('index.html', venues=Venue.query.all())	
+
+@app.route('/listevents', methods=['GET'])
+def list_events():
+	events = Event.query.all()
+	return render_template('listevents.html', events=events)
+
+@app.route('/editevents', methods=['POST'])
+def edit_events():
+	events = Event.query.all();
+	for event in events:
+		id = str(event.id)
+		checked =  False if request.form.get(id) is None else True
+		if checked: 
+			db.session.delete(event)
+
+	db.session.commit()
+
+	return list_events()
 
 @app.route('/login')
 def login():

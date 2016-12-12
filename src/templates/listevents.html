@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %} List Events {% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+<!-- begin script tag -->
+{% block script %}
+<script>
+
+function toggleRowChecked(rowid){
+	console.log(rowid)
+	var checked = $("#"+rowid).prop('checked')
+	$("#" + rowid).prop('checked', !checked)
+}
+
+</script>
+
+{% endblock %}
+
+
+
+{% block main_content %}
+<form id="eventstable" name="eventstable" method="post" action="/editevents">
+<div class="events-table">
+	<h1>Events</h1>
+	<table>
+		<tr class="column--header">
+			<td class="select--column"><input type="checkbox" disabled="true"></td>
+			<td>Venue</td>
+			<td>Type</td>
+			<td>Su</td>
+			<td>Mo</td>
+			<td>Tu</td>
+			<td>We</td>
+			<td>Th</td>
+			<td>Fr</td>
+			<td>Sa</td>
+			<td>Description</td>
+		</tr>
+	{% for event in events %}
+		<tr>
+			<td class="select--column">
+				<input type="checkbox" name="{{event.id}}" id="event{{event.id}}"></td>
+
+			<td onclick="toggleRowChecked('event{{event.id}}')">
+				<label for="event{{event.id}}">{{event.venue_id|e}}</label>
+			</td> 
+			<td onclick="toggleRowChecked('event{{event.id}}')">
+				<label for="event{{event.id}}">{{event.eventtype|e}}</label>
+			</td> 
+
+			<td class="{{event.sunday}}"></td> 
+			<td class=" {{event.monday}}"></td> 
+			<td class=" {{event.tuesday}}"></td> 
+			<td class=" {{event.wednesday}}"></td> 
+			<td class=" {{event.thursday}}"></td> 
+			<td class=" {{event.friday}}"></td> 
+			<td class=" {{event.saturday}}"></td> 
+			<td onclick="toggleRowChecked('event{{event.id}}')">
+				<label for="event{{event.id}}">{{event.description|e}}</label>
+			</td> 
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+<div class="buttons">
+	<input type="submit" class="button--center" name="deleteevent" value="Delete Event" ></input>
+</div>
+</form>
+{% endblock %}
