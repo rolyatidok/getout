@@ -100,7 +100,7 @@ form{
 }
 
 input[type="text"], input[type="password"], input[type="url"],
-input[type="submit"], input[type="button"]
+input[type="submit"], input[type="button"], select
 {
 	width:320px;
 	height:35px;

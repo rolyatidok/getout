@@ -22,11 +22,18 @@ textarea{
 
 	<div>
 		<label for="venueinput">Venue Name</label>
-		<input readonly="true" type="text" name="venueinput" id="venueinput" value="{{venue_name}}"/>
-		<script>$(venueinput).set('value', '{{venue_name}}') </script>
+		<input readonly="true" type="text" name="venueinput" id="venueinput" value="{{venue_name}}"/
+>		<script>$(venueinput).set('value', '{{venue_name}}') </script>
 
 		<label for="eventtitle">Event Title</label>
 		<input required="true" type="text" name="eventtitle" id="eventtitle"/>
+
+		<label for="eventtype">Event Type</label>
+		<select id="eventtype">
+			<option value="karaoke">Karaoke</option>
+			<option value="karaoke">Open Mic</option>
+			<option value="karaoke">Wing Special</option>
+		</select>
 
 		<label for="eventdescription">Event Description</label>
 		<textarea rows="8" name="eventdescription" id="eventdescription"></textarea>
